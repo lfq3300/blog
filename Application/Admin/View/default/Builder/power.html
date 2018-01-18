@@ -1,0 +1,221 @@
+<extend name="./Application/Admin/View/default/Public/base.html"/>
+
+<block name="body">
+    <style>
+        .power-one{
+            line-height: 40px;
+            padding-left: 100px;
+            background: #f2f6f9;
+        }
+        .power-two{
+            font-size: 14px;
+            padding-left: 150px;
+            margin: 10px 0;
+        }
+        label{
+            font-weight:100!important;
+            margin-bottom: 0px;
+        }
+        .power-three{
+            padding-left: 200px;
+        }
+        .am-form-group-box{
+            position: relative;
+        }
+        .icon{
+            position: absolute;
+            font-size: 18px;
+            top:5px;
+            left: 30px;
+            display: block;
+            width:50px;
+            text-align: center;
+            cursor:pointer;
+        }
+        .power{
+            display: none;
+        }
+        .am-icon-remove{
+            display: none;
+        }
+    </style>
+    <div class="tpl-content-wrapper-body row-content">
+        <div class="row">
+            <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                <div class="widget am-cf">
+                    <div class="widget-head am-cf">
+                        <php>
+                            $data = M("account")->where(array('id'=>I('get.id')))->find();
+                            $onepower = M("power")->where(array('account_id'=>I('get.id'),"level"=>1))->select();
+                            $twopower = M("power")->where(array('account_id'=>I('get.id'),"level"=>2))->select();
+                        </php>
+                        <div class="widget-title  am-cf">{$data['account']} 账号权限设置
+                            <span style="display: inline-block;padding-left: 20px;font-size: 12px">查看 为  增加, 删除 ,审核, 导出excel 权限的前提</span>
+                        </div>
+                    </div>
+                    <div class="widget-body am-fr">
+                        <form class="am-form tpl-form-border-form tpl-form-border-br tpl-form-line-form" method="post" action="{:U('Admin/setPower')}" enctype="application/x-www-form-urlencoded">
+                            <input type="hidden" name="account_id" value="{$data['id']}">
+                            <volist name="otherdata" id="item">
+                                <div class="am-form-group am-form-group-box">
+                                    <i class="am-icon-plus icon"></i>
+                                    <i class="am-icon-remove icon"></i>
+                                    <div class="power-one">
+                                        <php>
+                                            $select = '';
+                                            foreach($onepower as $key => $one){
+                                                if($one['menu_id'] == $item['id']){
+                                                    unset($onepower[$key]);
+                                                    $select = "checked='checked'";
+                                                    break;
+                                                }
+                                            }
+                                        </php>
+                                        <label>
+                                            <input  type="checkbox" value="{$item['id']}" name="one[]" {$select}> {$item['title']}
+                                        </label>
+                                    </div>
+                                    <php>
+                                        $twomenu = $item['twoMenu'];
+                                    </php>
+                                    <volist name="twomenu" id="twoitem">
+                                        <php>
+                                            $select = $add = $remove = $edit = $query = $export = $verify  = "";
+                                            foreach($twopower as $key=>$two){
+                                                if($twoitem['id'] == $two['menu_id']){
+                                                    $select = "checked='checked'";
+                                                    $add = $two['add'] == 1?"checked='checked'":"";
+                                                    $remove = $two['remove'] ==1 ?"checked='checked'":"";
+                                                    $edit = $two['edit'] == 1?"checked='checked'":"";
+                                                    $query = $two['query'] ==1 ?"checked='checked'":"";
+                                                    $export = $two['export'] == 1?"checked='checked'":"";
+                                                    $verify = $two['verify'] == 1?"checked='checked'":"";
+                                                    break;
+                                                }
+                                            }
+                                        </php>
+                                        <div class="power">
+                                        <div class="power-two">
+                                            <label>
+                                                <input  type="checkbox" value="{$twoitem['id']}" name="two[]" {$select}>
+                                                {$twoitem['title']}
+                                            </label>
+                                        </div>
+                                        <div class="power-three">
+                                            <div class="am-form-group">
+                                                <label class="am-checkbox-inline">
+                                                    <input type="checkbox" value="1" name="three[{$twoitem['id']}][query][]" {$query}> 查看
+                                                </label>
+                                                <label class="am-checkbox-inline">
+                                                    <input type="checkbox" value="1" name="three[{$twoitem['id']}][add][]" {$add}> 增加
+                                                </label>
+                                                <label class="am-checkbox-inline">
+                                                    <input type="checkbox" value="1" name="three[{$twoitem['id']}][remove][]" {$remove}> 删除
+                                                </label>
+                                                <label class="am-checkbox-inline">
+                                                    <input type="checkbox" value="1" name="three[{$twoitem['id']}][edit][]" {$edit}> 修改
+                                                </label>
+                                                <label class="am-checkbox-inline">
+                                                    <input type="checkbox" value="1" name="three[{$twoitem['id']}][excel][]" {$export}> 导出excel
+                                                </label>
+                                                <label class="am-checkbox-inline">
+                                                    <input type="checkbox" value="1" name="three[{$twoitem['id']}][verify][]"  {$verify}> 审核
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </volist>
+                                </div>
+                            </volist>
+                            <div class="am-form-group">
+                                <div class="am-u-sm-7 am-u-sm-push-3">
+                                    <button class="am-btn am-btn-primary tpl-btn-bg-color-success" id="submit" type="submit">确定</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function(){
+            $(".power-one label input").change(function(){
+                 var val = $(this).is(':checked');
+                 var p_dom = $(this).parents(".am-form-group");
+                 if(val){
+                    $(p_dom).find("input:checkbox").each(function () {
+                        $(this).prop('checked', true);
+                    })
+                 }else{
+                     $(p_dom).find("input:checkbox").each(function () {
+                         $(this).prop('checked', false);
+                     })
+                 }
+            })
+            $(".power-three input").change(function(){
+                var val = $(this).is(':checked');
+                if(val){
+                    $(this).parents(".power").find(".power-two label input").prop("checked",true);
+                    $(this).parents(".am-form-group").find(".power-one label input").prop("checked",true);
+                }else{
+                    var thisDom =  $(this).parents(".power").find(".power-three label input");
+                    console.log(thisDom);
+                    var thisStatus = false;
+                    for(var i = 0;i<thisDom.length;i++){
+                        if($(thisDom[i]).is(':checked')){
+                            thisStatus = true;
+                            return;
+                        }
+                    }
+                    if(!thisStatus){
+                        $(this).parents(".power").find(".power-two label input").prop("checked",false);
+                        var twoDom = $(this).parents(".am-form-group").find(".power-two label input");
+                        var twoStatus = false;
+                        for(var i = 0;i<twoDom.length;i++){
+                            if($(twoDom[i]).is(':checked')){
+                                twoStatus = true;
+                                return;
+                            }
+                        }
+                        if(!twoStatus){
+                            $(this).parents(".power").find(".power-two label input").prop("checked",false);
+                        }
+                    }
+                }
+            })
+            $(".power-two input").change(function(){
+                var val = $(this).is(':checked');
+                if(val){
+                    $(this).parents(".am-form-group").find(".power-one label input").prop("checked",true);
+                    $(this).parents(".power").find(".power-three label input").prop("checked",true);
+                }else{
+                    $(this).parents(".power").find(".power-three label input").prop("checked",false);
+                    var twoDom = $(this).parents(".am-form-group").find(".power-two label input");
+                    var twoStatus = false;
+                    for(var i = 0;i<twoDom.length;i++){
+                        if($(twoDom[i]).is(':checked')){
+                            twoStatus = true;
+                            return;
+                        }
+                    }
+                    if(!twoStatus){
+                        $(this).parents(".power").find(".power-two label input").prop("checked",false);
+                    }
+                }
+            })
+
+
+            $(".am-icon-plus").click(function () {
+                $(this).parents(".am-form-group").find(".am-icon-plus").hide();
+                $(this).parents(".am-form-group").find(".power").show();
+                $(this).parents(".am-form-group").find(".am-icon-remove").show();
+            });
+            $(".am-icon-remove").click(function () {
+                $(this).parents(".am-form-group").find(".am-icon-plus").show();
+                $(this).parents(".am-form-group").find(".power").hide();
+                $(this).parents(".am-form-group").find(".am-icon-remove").hide();
+            });
+        });
+    </script>
+</block>

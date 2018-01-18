@@ -1,10 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
+    <include  file="Public:head"/>
 </head>
-<body>
-$END$
+
+<body id="blog">
+<!-- nav start -->
+<include  file="Public:nav"/>
+<!-- nav end -->
+<!-- content srart -->
+<div class="am-g am-g-fixed blog-fixed">
+    <div class="am-u-md-12 am-u-sm-12">
+        <volist name="data" id="item" key="k">
+            <article class="am-g blog-entry-article">
+                <div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
+                    <img src="{$item.cover_img}" alt="" class="am-u-sm-12">
+                </div>
+                <div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
+                    <span><a href="" class="blog-color">{$item.author} </a></span>
+                    <span>{$item.add_time}</span>
+                    <h1><a href="./index.php/Blog?id={$item.id}">{$item.title}</a></h1>
+                    <p>{$item.introduction}</p>
+                    <p><a href="" class="blog-continue">continue reading</a></p>
+                </div>
+            </article>
+        </volist>
+        <ul class="am-pagination">
+            <li class="am-pagination-prev"><a href="">&laquo; Prev</a></li>
+            <li class="am-pagination-next"><a href="">Next &raquo;</a></li>
+        </ul>
+    </div>
+
+</div>
+<!-- content end -->
+<include  file="Public:footer"/>
 </body>
 </html>

@@ -1,15 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2018/1/17 0017
- * Time: 下午 2:48
- */
-
 namespace Home\Controller;
-
-
-class BlogController
-{
-
+use Think\Controller;
+class BlogController extends Controller {
+    public function index(){
+        $id = I("get.id");
+        $data = D("Blogger")->getInfo($id);
+        $this->assign("title",$data["title"]);
+        $this->assign("data",$data);
+        $this->display();
+    }
 }

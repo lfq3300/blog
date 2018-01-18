@@ -1,27 +1,17 @@
 <?php
-namespace Admin\Model;
-use Admin\Model\CommonModel;
+namespace Home\Model;
+use Home\Model\CommonModel;
 class BloggerModel extends CommonModel{
-    public  function datalist($page,$size){
-        $data = M("blogger")->page($page,$size)->order("sort desc,save_time")->select();
-        $total = M("blogger")->count();
-        return array($data,$total);
+    public  function  getIndex(){
+        $data = M("blogger")->page(1,5)->order("sort desc,save_time")->field("id,cover_img,author,DATE_FORMAT(add_time,'%Y/%m/%d') AS add_time ,title,introduction")->select();
+        return $data;
     }
-    public  function addlog($data){
-        $ret = M("blogger")->add($data);
-       return $ret;
-    }
-
-    public  function  savelog($id,$data){
-        $ret = M("blogger")->where(array("id"=>$id))->save($data);
-        if($ret === false){
-            return false;
-        }else{
-            return true;
-        }
-    }
-
     public  function  getInfo($id){
        return  M("blogger")->where(array("id"=>$id))->find();
+    }
+
+    public  function  getlist($page,$list){
+        $data = M("blogger")->page($page,$list)->order("sort desc,save_time")->field("id,cover_img,author,DATE_FORMAT(add_time,'%Y/%m/%d') AS add_time ,title,introduction")->select();
+        return $data;
     }
 }

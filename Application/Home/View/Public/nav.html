@@ -1,10 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<php>
+    $nav = array();
+    $nav[] = array("name"=>"首页","url"=>"./index.php");
+    $nav[] = array("name"=>"博客列表","url"=>"./index.php/List");
+    $nav[] = array("name"=>"个人日志","url"=>"./index.php/MyLog");
+</php>
+<nav class="am-g am-g-fixed blog-fixed blog-nav">
+    <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only blog-button" data-am-collapse="{target: '#blog-collapse'}" ><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+    <div class="am-collapse am-topbar-collapse" id="blog-collapse">
+        <ul class="am-nav am-nav-pills am-topbar-nav">
+            <volist name="nav" id="item" key="k">
+                <if condition="$k eq $pageindex">
+                    <li class="am-active"><a href="{$item.url}">{$item.name}</a></li>
+                    <else />
+                    <li><a href="{$item.url}">{$item.name}</a></li>
+                </if>
+            </volist>
+        </ul>
+        <form class="am-topbar-form am-topbar-right am-form-inline" role="search">
+            <div class="am-form-group">
+                <input type="text" class="am-form-field am-input-sm" placeholder="搜索">
+            </div>
+        </form>
+    </div>
+</nav>
+<hr>
