@@ -401,7 +401,6 @@ class AdminListBuilder extends AdminBuilder{
 
         $setStatusUrl = $this->_setStatusUrl;
 
-
          $this->convertKey("Img",'html',function($value,$key,$item){
             $html = "<img style='max-width:150px;max-height:150px' src=\"" .$key['mcurl'] .$value ."\" class='tpl-table-line-img' />";
             return $html;

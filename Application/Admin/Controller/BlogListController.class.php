@@ -19,6 +19,7 @@ class BlogListController extends AdminController{
                ->powerAdd("add")
                ->powerRemove("delete")
                ->title("博客列表")
+               ->keyText("assortment_name","分类")
                ->keyText("title","标题")
                ->keyText("subtitle","副标题")
                ->keyText("introduction","导读")
@@ -44,7 +45,8 @@ class BlogListController extends AdminController{
                     "add_time" => date("Y-m-d H:i:s"),
                     "save_time" =>date("Y-m-d H:i:s"),
                     "author"    => I("post.author","lfq3300"),
-                    "sort"      =>I("post.sort")
+                    "sort"      =>I("post.sort"),
+                    "assortment"=>I("post.assortment")
                 );
                 if (D("Blogger")->addlog($data)){
                     $this->success("成功",U("index"));
@@ -52,11 +54,13 @@ class BlogListController extends AdminController{
                     $this->error("失败");
                 }
            }else{
+               $typeData = D("Blogger")->getType();
                $Builder = new AdminConfigBuilder();
                $Builder
                    ->keySelect("hide","是否显示博客",array("value"=>1),array("1"=>"显示","2"=>"隐藏"))
                    ->title("新增博客")
                    ->keyText("title","标题")
+                   ->keySelect("assortment","选择分类","",$typeData)
                    ->keyText("subtitle","副标题")
                    ->keyText("introduction","导读")
                    ->keyText("author","作者")
@@ -79,7 +83,8 @@ class BlogListController extends AdminController{
                 "blog" => I("post.blog"),
                 "save_time" =>date("Y-m-d H:i:s"),
                 "author"    => I("post.author","lfq3300"),
-                "sort"      =>I("post.sort")
+                "sort"      =>I("post.sort"),
+                "assortment"=>I("post.assortment")
             );
             if (D("Blogger")->savelog($id,$data)){
                 $this->success("成功",U("index"));
@@ -89,11 +94,13 @@ class BlogListController extends AdminController{
         }else{
             $data = D("Blogger")->getInfo(I("get.id"));
             $Builder = new AdminConfigBuilder();
+            $typeData = D("Blogger")->getType();
             $Builder
                 ->keySelect("hide","是否显示博客",array("value"=>1),array("1"=>"显示","2"=>"隐藏"))
-                ->title("新增博客")
+                ->title("修改博客")
                 ->keyHidden("id")
                 ->keyText("title","标题")
+                ->keySelect("assortment","所属分类",array("value"=>$data["assortment"]),$typeData)
                 ->keyText("subtitle","副标题")
                 ->keyText("introduction","导读")
                 ->keyText("author","作者")
@@ -122,5 +129,62 @@ class BlogListController extends AdminController{
         Header("Location: $url");
     }
 
+    public  function  type(){
+        $data = D("Blogger")->getListType();
+        $Builder = new AdminListBuilder();
+        $Builder
+            ->title("博客分类")
+            ->powerAdd("addType")
+            ->keyText("p_name","父级目录")
+            ->keyText("assortment_name","分类名称")
+            ->powerEdit("editType?id=###")
+            ->data($data)
+            ->display();
+    }
+
+
+    public  function editType(){
+        if($_POST){
+            $ret = M("blogger_assortment")->where(array("id"=>I("post.id")))->save(array("assortment_name"=>I("post.assortment_name"),"p_id"=>I("post.p_id")));
+            if($ret!=false){
+                $this->success("修改成功",U("type"));
+            }else{
+                $this->error("修改失败");
+            }
+        }else{
+            $id = I("get.id");
+            $data = M("blogger_assortment")->where(array("id"=>$id))->find();
+            $typeData = D("Blogger")->getFirstType();
+            $Builder = new AdminConfigBuilder();
+            $Builder
+                ->title("修改博客分类")
+                ->keyHidden("id")
+                ->keySelect("p_id","所属目录",array("value"=>$data["p_id"]),$typeData)
+                ->keyText("assortment_name","分类名称")
+                ->data($data)
+                ->buttonSubmit()
+                ->display();
+        }
+    }
+
+    public  function  addType(){
+        if($_POST){
+            $data = array("assortment_name"=>I("post.assortment_name"),"p_id"=>I("post.p_id"));
+            if( M("blogger_assortment")->add($data)){
+                $this->success("新增成功",U("type"));
+            }else{
+                $this->error("新增失败");
+            }
+        }else{
+            $Builder = new AdminConfigBuilder();
+            $typeData = D("Blogger")->getFirstType();
+            $Builder
+                ->title("新增博客分类")
+                ->keySelect("p_id","所属目录","",$typeData)
+                ->keyText("assortment_name","分类名称")
+                ->buttonSubmit()
+                ->display();
+        }
+    }
 
 }

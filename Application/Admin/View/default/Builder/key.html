@@ -86,7 +86,7 @@
 	</case>
 	<case value="select">
 		<div class="am-form-group">
-			<label  class="am-u-sm-2 am-form-label">{$field.title}			{$field['value']}<span class="tpl-form-line-small-title">{$field.subtitle}</span></label>
+			<label  class="am-u-sm-2 am-form-label">{$field.title}<span class="tpl-form-line-small-title">{$field.subtitle}</span></label>
             <div class="am-u-sm-4">
                 <select data-am-selected="{searchBox: 1,maxHeight: 200}" name="{$field.name}">
 				  	 <volist name="field.other" id="option">
@@ -218,7 +218,7 @@
 	</case>
 	<case value="noselect">
 		<div class="am-form-group">
-			<label  class="am-u-sm-2 am-form-label">{$field.title} <span class="tpl-form-line-small-title">{$field.subtitle}</span></label>
+			<label  class="am-u-sm-2 am-form-label">{$field.title}<span class="tpl-form-line-small-title">{$field.subtitle}</span></label>
 			<div class="am-u-sm-4">
 				<select data-am-selected="{searchBox: 1,maxHeight: 200}" name="{$field.name}" onchange="selectDataList(this)" id="noselect">
 					<volist name="field.opt" id="option" >

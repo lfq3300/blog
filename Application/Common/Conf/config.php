@@ -2,7 +2,8 @@
 return array(
 
     'DB_TYPE'   => 'mysqli', // 数据库类型
-    'DB_HOST'   => '47.100.12.148',
+    'DB_HOST'   => '127.0.0.1',
+    //   'DB_HOST'   => '47.100.12.148',
     'DB_NAME'   => 'blog', // 数据库名
     'DB_USER'   => 'root', // 用户名
     'DB_PWD'    => '3300',  // 密码

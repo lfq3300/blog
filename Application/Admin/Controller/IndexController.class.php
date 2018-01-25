@@ -43,7 +43,7 @@ class IndexController extends Controller{
             session('account', $ret["account"]);
             session('account_id', $ret["id"]);
             session('level', $ret["level"]);
-            returnJson(1);
+            returnJson(1,"ok");
         }
 	}
 
@@ -55,30 +55,6 @@ class IndexController extends Controller{
         header("Location: $url");
 	}
 
-//	public  function  text()
-//    {
-//        $sql  = fopen("ab.sql", "w");
-//        $password = fopen("password.txt", "r");
-//        $account = fopen("account.txt", "r");
-//        $user= "";
-//        $i=0;
-//        while(! feof(password))
-//        {
-//           if($i>264317){
-//                break;
-//           }else{
-//               $account_s = trim(fgets($account));
-//               $last = rand(1000,9999);
-//               $psd = md5(trim(fgets($password)).$last);
-//               fwrite($sql,"INSERT INTO `mc_user` (`login_salt`,`username`,`sex`,`account`,`password`,`unionid`) VALUES ('$last','$account_s','0','$account_s','$psd','464512598');");
-//           }
-//            $i++;
-//        }
-//        fclose($password);
-//        fclose($sql);
-//        fclose($account);
-//        print_r($user);
-//    }
 
 
 	public  function  menuIndex(){

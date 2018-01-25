@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -9,14 +9,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <link rel="apple-touch-icon-precomposed" href="__IMG__/app-icon72x72@2x.png">
+    <link rel="apple-touch-icon-precomposed" href="/Application/Admin/Static/img/app-icon72x72@2x.png">
     <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-    <script src="__JS__/jquery.min.js"></script>
-    <link href="__CSS__/amazeui.min.css" rel="stylesheet" type="text/css"/>
-    <link href="__CSS__/amazeui.reset.css" rel="stylesheet" type="text/css"/>
-    <link href="__CSS__/amazeui.datatables.min.css" rel="stylesheet" type="text/css" />
-    <link href="__CSS__/app.css" rel="stylesheet" type="text/css"/>
-    <script src="__JS__/amazeui.min.js"></script>
+    <script src="/Application/Admin/Static/js/jquery.min.js"></script>
+    <link href="/Application/Admin/Static/css/amazeui.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/Application/Admin/Static/css/amazeui.reset.css" rel="stylesheet" type="text/css"/>
+    <link href="/Application/Admin/Static/css/amazeui.datatables.min.css" rel="stylesheet" type="text/css" />
+    <link href="/Application/Admin/Static/css/app.css" rel="stylesheet" type="text/css"/>
+    <script src="/Application/Admin/Static/js/amazeui.min.js"></script>
     <script type="text/javascript">
         function KeyloginFun(event){
             var e = event || window.event || arguments.callee.caller.arguments[0];
@@ -32,16 +32,16 @@
                 type:"post",
                 dataType:"json",
                 data:{"account":account,"password":password},
-                url:"{:U('Index/login')}",
+                url:"<?php echo U('Index/login');?>",
                 success:function(e){
                     if(e.ret != 1){
                         alert(e.msg);
                     }else{
-                        window.location.href ="{:U('Admin/Admin/admin')}";
+                        window.location.href ="<?php echo U('Admin/Admin/admin');?>";
                     }
                 },
                 error:function (e) {
-                    window.location.href ="{:U('Admin/Admin/admin')}";
+                    window.location.href ="<?php echo U('Admin/Admin/admin');?>";
                 }
             })
         }

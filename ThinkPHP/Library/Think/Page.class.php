@@ -93,22 +93,26 @@ class Page{
 
         //上一页
         $up_row  = $this->nowPage - 1;
-        $up_page = $up_row > 0 ? '<a class="prev" href="' . $this->url($up_row) . '">' . $this->config['prev'] . '</a>' : '';
-
+        $up_page = $up_row > 0 ? '<a class="prev page-numbers" href="' . $this->url($up_row) . '">Prev page</a>' : '';
         //下一页
         $down_row  = $this->nowPage + 1;
-        $down_page = ($down_row <= $this->totalPages) ? '<a class="next" href="' . $this->url($down_row) . '">' . $this->config['next'] . '</a>' : '';
+        $down_page = ($down_row <= $this->totalPages) ? '<a class="next page-numbers" href="' . $this->url($down_row) . '">Next page</a>' : '';
+        /*
+         * <a class="page-numbers" href="JavaScript:void(0)">
+                                98
+                            </a>
+         * */
 
         //第一页
         $the_first = '';
         if($this->totalPages > $this->rollPage && ($this->nowPage - $now_cool_page) >= 1){
-            $the_first = '<a class="first" href="' . $this->url(1) . '">' . $this->config['first'] . '</a>';
+            $the_first = '<a class="page-numbers" href="' . $this->url(1) . '"><span class="meta-nav screen-reader-text">Page</span>' . $this->config['first'] . '</a>';
         }
 
         //最后一页
         $the_end = '';
         if($this->totalPages > $this->rollPage && ($this->nowPage + $now_cool_page) < $this->totalPages){
-            $the_end = '<a class="end" href="' . $this->url($this->totalPages) . '">' . $this->config['last'] . '</a>';
+            $the_end = '<a class="page-numbers" href="' .$this->url($this->totalPages) . '"><span class="meta-nav screen-reader-text">Page</span>' . $this->config['last'] . '</a>';
         }
 
         //数字连接
@@ -122,15 +126,14 @@ class Page{
 				$page = $this->nowPage - $now_cool_page_ceil + $i;
 			}
             if($page > 0 && $page != $this->nowPage){
-
                 if($page <= $this->totalPages){
-                    $link_page .= '<a class="num" href="' . $this->url($page) . '">' . $page . '</a>';
+                    $link_page .= '<a class="page-numbers" href="' . $this->url($page) . '"><span class="meta-nav screen-reader-text">Page </span>' . $page . '</a>';
                 }else{
                     break;
                 }
             }else{
                 if($page > 0 && $this->totalPages != 1){
-                    $link_page .= '<span class="current">' . $page . '</span>';
+                    $link_page .= '<span aria-current="page" class="page-numbers current"><span class="meta-nav screen-reader-text">Page</span>' . $page . '</span>';
                 }
             }
         }
@@ -140,6 +143,8 @@ class Page{
             array('%HEADER%', '%NOW_PAGE%', '%UP_PAGE%', '%DOWN_PAGE%', '%FIRST%', '%LINK_PAGE%', '%END%', '%TOTAL_ROW%', '%TOTAL_PAGE%'),
             array($this->config['header'], $this->nowPage, $up_page, $down_page, $the_first, $link_page, $the_end, $this->totalRows, $this->totalPages),
             $this->config['theme']);
-        return "<div >{$page_str}</div>";
+        return "<nav class='navigation pagination' role='navigation'>
+                        <h2 class='screen-reader-text'>Posts navigation</h2>
+                        <nav class='nav-links'>{$page_str}</nav>";
     }
 }

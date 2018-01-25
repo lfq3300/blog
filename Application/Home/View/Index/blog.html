@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-US" class="js">
     <include  file="Public:head"/>
-
 <body class="home blog hfeed">
 <div id="page" class="site">
     <div class="site-inner">
@@ -9,7 +8,7 @@
         <header id="masthead" class="site-header" role="banner">
             <div class="site-header-main">
                 <div class="site-branding">
-                    <h1 class="site-title"><a href="JavaScript:void(0)" rel="home">Zhiming Ji's Blog</a></h1>
+                    <h1 class="site-title"><a href="/" rel="home">Mr.L's Blog</a></h1>
                 </div>
                 <!-- .site-branding -->
             </div>
@@ -19,33 +18,35 @@
         <div id="content" class="site-content">
             <div id="primary" class="content-area">
                 <main id="main" class="site-main" role="main">
+                    <header class="page-header">
+                        <h2 class="page-title">Author: <span class="vcard">Mr.L</span></h2>
+                    </header>
                     <article id="post-2250" class="post-2250 post type-post status-publish format-standard hentry category-learning-record">
                         <header class="entry-header">
 
-                            <h2 class="entry-title"><a href="JavaScript:void(0)" rel="bookmark">什么是对的，什么是错的？</a></h2> </header>
+                            <h2 class="entry-title"><a href="JavaScript:void(0)" rel="bookmark">{$data.title}</a></h2> </header>
                         <!-- .entry-header -->
 
                         <div class="entry-content">
-                            <p>张小龙现场“约战”跳一跳，发布2018微信全新计划（内附演讲全文）<br> https://mp.weixin.qq.com/s/06XtJCPFp7Q20Hfh84MvNg
-                            </p>
-                            <p>引用1：经常要做出一种选择，在你做出一个决策的时候你认为这样做是对的，但是那样做可能是利益最大化的，在对和错以及利益最大化方面我们经常会做出这样的选择。对微信来说，我认为我们每天在做的选择里面都遵循一个标准，就是这个事情是对的还是错的，而不是说它是不是一个利益最大化的。</p>
-                            <p>引用2：判断什么样的事情是该做的，什么是对的，什么是对错，这样一系列的判断很理性的过程，而不是靠一个感觉我这样很有情怀就好了。<br> 觉得
-                            </p>
-                            <p>前段时间，阅读《聪明的投资者》，其中提到的最重要的就是区分投资与投机，投资是理性的分析，投机是不分析。</p>
-                            <p>最近感悟：身处小公司团队，经常感觉不到希望，此时要让自己冷静下来，放松放松。再做一个冷静的理性分析。</p>
+                            <?php echo html_entity_decode($data["blog"]);?>
                         </div>
                         <!-- .entry-content -->
 
                         <footer class="entry-footer">
-									<span class="byline"><span class="author vcard"><span class="screen-reader-text">Author </span>
-									<a class="url fn n" href="https://zhimingji.com/author/admin/">admin</a>
+                                    <span class="cat-links">
+                                        <span class="screen-reader-text">Posted on </span>
+                                        <a href="JavaScript:void(0)" rel="bookmark">
+                                            <time class="entry-date published updated" datetime="{$data.add_time}">{$data.add_time}</time>
+                                        </a>
 									</span>
-									</span><span class="posted-on"><span class="screen-reader-text">Posted on </span>
-									<a href="JavaScript:void(0)" rel="bookmark"><time class="entry-date published updated" datetime="2018-01-15T18:01:59+00:00">January 15, 2018</time></a>
-									</span><span class="cat-links"><span class="screen-reader-text">Categories </span>
-									<a href="https://zhimingji.com/category/learning-record/" rel="category tag">Learning Record</a>
-									</span><span class="comments-link"><a href="JavaScript:void(0)">Leave a comment<span class="screen-reader-text"> on 什么是对的，什么是错的？</span></a>
-									</span>
+                                    <span class="cat-links">
+                                            <span class="screen-reader-text">Categories </span>
+                                            <a href="/index?typeId={$item.assortment_id}" rel="category tag">{$item.assortment_name}</a>
+                                    </span>
+                                    <!--<span class="cat-links">-->
+                                            <!--<span class="screen-reader-text">Categories </span>-->
+                                            <!--<a href="/" rel="category tag">Home</a>-->
+                                    <!--</span>-->
                         </footer>
                         <!-- .entry-footer -->
                     </article>
@@ -54,60 +55,13 @@
                 <!-- .site-main -->
             </div>
             <!-- .content-area -->
-
-            <aside id="secondary" class="sidebar widget-area" role="complementary">
-                <section id="search-3" class="widget widget_search">
-                    <form role="search" method="get" class="search-form" action="JavaScript:void(0)">
-                        <label>
-                            <span class="screen-reader-text">Search for:</span>
-                            <input type="search" class="search-field" placeholder="Search …" value="" name="s">
-                        </label>
-                        <button type="submit" class="search-submit"><span class="screen-reader-text">Search</span></button>
-                    </form>
-                </section>
-                <section id="archives-4" class="widget widget_archive">
-                    <h2 class="widget-title">Archives</h2>
-                    <ul>
-                        <li>
-                            <a href="JavaScript:void(0)">January 2008</a>&nbsp;(1)
-                        </li>
-                    </ul>
-                </section>
-                <section id="linkcat-2" class="widget widget_links">
-                    <h2 class="widget-title">Blogroll</h2>
-                    <ul class="xoxo blogroll">
-                        <li>
-                            <a href="JavaScript:void(0)">Zhang Yan</a>
-                        </li>
-                    </ul>
-                </section>
-                <section id="tag_cloud-3" class="widget widget_tag_cloud">
-                    <h2 class="widget-title">Tags</h2>
-                    <div class="tagcloud">
-                        <ul class="wp-tag-cloud" role="list">
-                            <li>
-                                <a href="JavaScript:void(0)" class="tag-cloud-link tag-link-79 tag-link-position-45" style="font-size: 1em;">验证码</a>
-                            </li>
-                        </ul>
-                    </div>
-                </section>
-                <!--<section id="text-3" class="widget widget_text">
-                    <div class="textwidget"><img src="./Zhiming Ji&#39;s Blog_files/erweima.png" title="qr code"></div>
-                </section>-->
-            </aside>
+            <include  file="Public:nav"/>
             <!-- .sidebar .widget-area -->
 
         </div>
         <!-- .site-content -->
+        <include  file="Public:pagefooter"/>
 
-        <footer id="colophon" class="site-footer" role="contentinfo">
-
-            <div class="site-info">
-                <span class="site-title"><a href="https://zhimingji.com/" rel="home">Zhiming Ji's Blog</a></span>
-                <a href="JavaScript:void(0)">Proudly powered by WordPress</a>
-            </div>
-            <!-- .site-info -->
-        </footer>
         <!-- .site-footer -->
     </div>
     <!-- .site-inner -->

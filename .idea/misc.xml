@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ProjectPlainTextFileTypeManager">
+    <file url="file://$PROJECT_DIR$/Application/Home/Controller/BlogController.class.php" />
+    <file url="file://$PROJECT_DIR$/Application/Home/Controller/ListController.class.php" />
+    <file url="file://$PROJECT_DIR$/Application/Home/Controller/MyLogController.class.php" />
+  </component>
   <component name="SvnConfiguration" myUseAcceleration="nothing">
     <configuration useDefault="false">C:\Users\Administrator\AppData\Roaming\Subversion</configuration>
     <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="true" />

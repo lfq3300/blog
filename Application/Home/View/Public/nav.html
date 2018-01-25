@@ -1,26 +1,37 @@
-<php>
-    $nav = array();
-    $nav[] = array("name"=>"首页","url"=>"./index.php");
-    $nav[] = array("name"=>"博客列表","url"=>"./index.php/List");
-    $nav[] = array("name"=>"个人日志","url"=>"./index.php/MyLog");
-</php>
-<nav class="am-g am-g-fixed blog-fixed blog-nav">
-    <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only blog-button" data-am-collapse="{target: '#blog-collapse'}" ><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
-    <div class="am-collapse am-topbar-collapse" id="blog-collapse">
-        <ul class="am-nav am-nav-pills am-topbar-nav">
-            <volist name="nav" id="item" key="k">
-                <if condition="$k eq $pageindex">
-                    <li class="am-active"><a href="{$item.url}">{$item.name}</a></li>
-                    <else />
-                    <li><a href="{$item.url}">{$item.name}</a></li>
-                </if>
-            </volist>
-        </ul>
-        <form class="am-topbar-form am-topbar-right am-form-inline" role="search">
-            <div class="am-form-group">
-                <input type="text" class="am-form-field am-input-sm" placeholder="搜索">
-            </div>
+<aside id="secondary" class="sidebar widget-area" role="complementary">
+    <section id="search-3" class="widget widget_search">
+        <form role="search" method="get" class="search-form" action="/index">
+            <label>
+                <span class="screen-reader-text">Search for:</span>
+                <input type="search" class="search-field" placeholder="Search …" value="{$_GET['key']}" name="key">
+            </label>
+            <button type="submit" class="search-submit"><span class="screen-reader-text">Search</span></button>
         </form>
-    </div>
-</nav>
-<hr>
+    </section>
+    <volist name="firsttnav" id="first">
+        <section id="archives-{$first.id}" class="widget widget_archive">
+            <h2 class="widget-title">{$first.assortment_name}</h2>
+            <ul>
+                <volist name="twotnav" id="two">
+                    <if condition="$first['id'] eq $two['p_id']">
+                        <li>
+                            <a href="/index?typeid={$two.id}">{$two.assortment_name}</a>&nbsp;({$two.blog_num})
+                        </li>
+                    </if>
+                </volist>
+            </ul>
+        </section>
+    </volist>
+
+
+    <!--<section id="tag_cloud-3" class="widget widget_tag_cloud">-->
+        <!--<h2 class="widget-title">Tags</h2>-->
+        <!--<div class="tagcloud">-->
+            <!--<ul class="wp-tag-cloud" role="list">-->
+                <!--<li>-->
+                    <!--<a href="JavaScript:void(0)" class="tag-cloud-link tag-link-79 tag-link-position-45" style="font-size: 1em;">验证码</a>-->
+                <!--</li>-->
+            <!--</ul>-->
+        <!--</div>-->
+    <!--</section>-->
+</aside>

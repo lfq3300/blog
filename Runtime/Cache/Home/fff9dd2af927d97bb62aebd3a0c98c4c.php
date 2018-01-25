@@ -106,30 +106,38 @@
         <div id="content" class="site-content">
             <div id="primary" class="content-area">
                 <main id="main" class="site-main" role="main">
-                    <?php if(is_array($data)): $i = 0; $__LIST__ = $data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$item): $mod = ($i % 2 );++$i;?><article id="post-2250" class="post-2250 post type-post status-publish format-standard hentry category-learning-record">
-                            <header class="entry-header">
+                    <header class="page-header">
+                        <h2 class="page-title">Author: <span class="vcard">Mr.L</span></h2>
+                    </header>
+                    <article id="post-2250" class="post-2250 post type-post status-publish format-standard hentry category-learning-record">
+                        <header class="entry-header">
 
-                                <h2 class="entry-title"><a href="/index/blog?id=<?php echo ($item["id"]); ?>" rel="bookmark"><?php echo ($item["title"]); ?></a></h2> </header>
-                            <!-- .entry-header -->
+                            <h2 class="entry-title"><a href="JavaScript:void(0)" rel="bookmark"><?php echo ($data["title"]); ?></a></h2> </header>
+                        <!-- .entry-header -->
 
-                            <div class="entry-content">
-                                <?php echo html_entity_decode($item["blog"]);?>
-                            </div>
-                            <!-- .entry-content -->
+                        <div class="entry-content">
+                            <?php echo html_entity_decode($data["blog"]);?>
+                        </div>
+                        <!-- .entry-content -->
 
-                            <footer class="entry-footer">
-                                        <span class="posted-on">
-                                            <span class="screen-reader-text">Posted on </span>
-                                            <a href="JavaScript:void(0)" rel="bookmark"><time class="entry-date published updated" datetime="<?php echo ($item["add_time"]); ?>"><?php echo ($item["add_time"]); ?></time></a>
-                                        </span>
-                                        <span class="cat-links">
+                        <footer class="entry-footer">
+                                    <span class="cat-links">
+                                        <span class="screen-reader-text">Posted on </span>
+                                        <a href="JavaScript:void(0)" rel="bookmark">
+                                            <time class="entry-date published updated" datetime="<?php echo ($data["add_time"]); ?>"><?php echo ($data["add_time"]); ?></time>
+                                        </a>
+									</span>
+                                    <span class="cat-links">
                                             <span class="screen-reader-text">Categories </span>
                                             <a href="/index?typeId=<?php echo ($item["assortment_id"]); ?>" rel="category tag"><?php echo ($item["assortment_name"]); ?></a>
-                                        </span>
-                            </footer>
-                            <!-- .entry-footer -->
-                        </article><?php endforeach; endif; else: echo "" ;endif; ?>
-                    <?php echo ($page); ?>
+                                    </span>
+                                    <!--<span class="cat-links">-->
+                                            <!--<span class="screen-reader-text">Categories </span>-->
+                                            <!--<a href="/" rel="category tag">Home</a>-->
+                                    <!--</span>-->
+                        </footer>
+                        <!-- .entry-footer -->
+                    </article>
                     <!-- #post-## -->
                 </main>
                 <!-- .site-main -->
@@ -166,6 +174,7 @@
         <!--</div>-->
     <!--</section>-->
 </aside>
+            <!-- .sidebar .widget-area -->
 
         </div>
         <!-- .site-content -->
@@ -177,6 +186,7 @@
     </div>
     <!-- .site-info -->
 </footer>
+
         <!-- .site-footer -->
     </div>
     <!-- .site-inner -->
