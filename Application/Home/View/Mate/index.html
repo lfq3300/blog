@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>小伙伴</title>
+    <link rel='stylesheet'  href='__CSS__/amazeui.css' type='text/css' media='all' />
+    <![endif]-->
+    <script type="text/javascript" src="__JS__/jquery.js"></script>
+    <script type="text/javascript" src="__JS__/amazeui.js"></script>
+</head>
+<body>
+<br>
+<p STYLE="padding-left: 15px">{$alert}</p>
+<br>
+<table class="am-table am-table-striped am-table-hover am-table-centered">
+    <thead>
+    <tr>
+        <th>姓名</th>
+        <if condition="$root">
+                <th>微信</th>
+                <th>QQ</th>
+                <th>手机号码</th>
+                <th>学校</th>
+            <else />
+                <th>备注</th>
+        </if>
+    </tr>
+    </thead>
+    <tbody>
+    <volist name="data" id="item">
+        <tr>
+            <td>{$item.name}</td>
+            <if condition="$root">
+                    <td>{$item.wx}</td>
+                    <td>{$item.qq}</td>
+                    <td>{$item.telephone}</td>
+                    <td>{$item.address}</td>
+                <else />
+                    <td>{$item.shuoming}</td>
+            </if>
+        </tr>
+    </volist>
+    </tbody>
+</table>
+</body>
+</html>

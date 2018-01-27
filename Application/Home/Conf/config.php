@@ -6,4 +6,6 @@ return array(
 	   '__IMG__' => __ROOT__ . '/Application/' . MODULE_NAME . '/Static/i',
 	   '__JS__' => __ROOT__ . '/Application/' . MODULE_NAME . '/Static/js',
 	),
+    'URL_MODEL'=>2,
+    'POWER'=>"Zzlicy3300",
 );

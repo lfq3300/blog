@@ -7,6 +7,7 @@ class BloggerModel extends CommonModel{
                 ->table("mc_blogger AS A")
                 ->join("mc_blogger_assortment AS B on A.assortment = B.id")
                 ->page($page,$size)
+                ->field("A.*,B.assortment_name")
                 ->order("A.sort desc,A.save_time")
                 ->select();
         $total = M("blogger")->count();
@@ -52,15 +53,19 @@ class BloggerModel extends CommonModel{
         return $arr;
     }
 
-    public  function  getListType(){
-        $where["A.p_id"] = array("neq",0);
-        $where["B.p_id"] = array("eq",0);
-       $data =  $this->table("mc_blogger_assortment AS A")
-            ->join("mc_blogger_assortment AS B on A.p_id = B.id")
-            ->field("A.id,A.assortment_name,B.assortment_name as p_name")
+    public  function  getListType($id){
+        $where["p_id"] = array("eq",$id);
+       $data =  $this->table("mc_blogger_assortment")
+            ->field("id,assortment_name")
             ->where($where)
             ->select();
         return $data;
+    }
+
+    public  function  getListFirstType(){
+        $where["p_id"] = array("eq",0);
+        $typeData = M("blogger_assortment")->where($where)->select();
+        return $typeData;
     }
 
 

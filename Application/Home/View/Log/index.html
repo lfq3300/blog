@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en-US" class="js">
+<include file="Public:head" />
+<body class="home blog hfeed">
+<link rel="stylesheet" type="text/css" href="__CSS__/log.css">
+<script type="text/javascript" href="__JS__/jquery.js"></script>
+<div id="page" class="site">
+    <div class="site-inner">
+        <a class="skip-link screen-reader-text" href="JavaScript:void(0)">Skip to content</a>
+        <header id="masthead" class="site-header" role="banner">
+            <div class="site-header-main">
+                <div class="site-branding">
+                    <h1 class="site-title"><a href="/" rel="home">Mr.L's Blog</a></h1>
+                </div>
+            </div>
+        </header>
+        <div id="content" class="site-content">
+            <div id="primary" class="content-area">
+                <main id="main" class="site-main" role="main">
+                    <header class="page-header">
+                        <h2 class="page-title">Log</h2>
+                    </header>
+                    <div class="body_container">
+                        <div class="pure-g" id="layout">
+                            <div class="pure-u-1 pure-u-md-3-4">
+                                <div class="content_container">
+                                    <div class="post">
+                                        <div class="post-content">
+                                            <section id="process">
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
+                                                            <div class="timeline-centered" id="logcontent">
+                                                                <div class="line"></div>
+                                                                <div class="present">Now</div>
+                                                                <div class="dot_tp"></div>
+                                                                <a href="JavaScript:void(0)" class="born" id="loadMore">Load More</a>
+                                                                <div class="dot_bt"></div>
+                                                                <volist name="data" id="item" key="index">
+                                                                    <div class="timeline-entry">
+                                                                        <div class="timeline-entry-inner">
+                                                                            <div class="timeline-icon wow fadeInUp"><span class="number">{$index}</span></div>
+                                                                            <div class="timeline-label wow fadeInUp">
+                                                                                     {$item.add_time}<?php echo html_entity_decode($item["content"]);?>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </volist>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </section>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+            <aside id="secondary" class="sidebar widget-area" role="complementary">
+                <section id="archives-{$first.id}" class="widget widget_archive">
+                    <h2 class="widget-title"><a href="/">Home</a></h2>
+                </section>
+            </aside>
+        </div>
+        <include file="Public:pagefooter" />
+    </div>
+</div>
+<include file="Public:footer" />
+<script type="text/javascript">
+    var page = 1;
+    var nextStatus = true;
+    var index = {$count};
+    var rootdata = "{$rootdata}";
+    var ajaxSataus = true;
+    window.onload = function(){
+        jQuery("#loadMore").click(function () {
+            if(ajaxSataus&&nextStatus){
+                jQuery.ajax({
+                    "url":"/index.php/Log/getNextLog",
+                    "type":"post",
+                    "data":{"page":page,"p":rootdata},
+                    "async":true,
+                    "beforeSend":function(){
+                        ajaxSataus = false;
+                    },
+                    "success":function(ret){
+                        var data = ret.data ;
+                        var ret = ret.ret;
+                        if(ret==1){
+                           for(var item in data){
+                               var thisdata = data[item];
+                               var html = jQuery.parseHTML();
+                               index++;
+                               jQuery("#logcontent").append("<div class='timeline-entry' id='log"+thisdata.logid+"'></div>");
+                               var html = "<div class='timeline-entry-inner'>"+
+                                   "<div class='timeline-icon wow fadeInUp'><span class='number'>"+index+"</span></div>"+
+                                   "<div class='timeline-label wow fadeInUp'>"+
+                                   thisdata.add_time+thisdata.content+
+                                   "</div></div>";
+                               jQuery("#log"+thisdata.logid).html(html);
+                           }
+                            page++;
+                        }else{
+                            nextStatus = false;
+                            jQuery("#loadMore").text("End");
+                        }
+                    },
+                    "error":function(ret){
+                       alert("网络连接错误,请确认网络连接是否正常");
+                    },
+                    "complete":function(){
+                        ajaxSataus = true;
+                    }
+                })
+            }
+        })
+    }
+
+</script>
+</body>

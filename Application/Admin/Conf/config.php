@@ -9,8 +9,8 @@ return array(
        '__PUBLIC__'=> __ROOT__ . '/Public',
 	),
     //关于路径配置
-    'ADMIN_URL' =>'http://www.luofq.com/admin.php/',
-    'ADMIN_ROOT' =>'http://www.luofq.com',
+    'ADMIN_URL' =>'http://luo:80/admin.php/',
+    'ADMIN_ROOT' =>'http://luo:80',
     'ADMIN_UPLOAD_ROOT' =>'',
 
      /* 图片上传相关配置 */

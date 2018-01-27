@@ -27,8 +27,10 @@ class BlogListController extends AdminController{
                ->keyText("sort","排序")
                ->keyText("add_time","添加时间")
                ->keyText("save_time","修改时间")
+               ->keyStatus("hide","是否显示",array("1"=>"显示","2"=>"不显示"))
+               ->keyStatus("privacy","是否个人可见",array("1"=>"仅个人可见","2"=>"全部人可见"))
                ->powerEdit("edit?id=###")
-               ->keyDoAction("preview?id=###","查看")
+               ->keyDoAction("preview?id=###&p=Zzlicy3300","查看")
                ->data($data)
                ->pagination($total,20)
                ->display();
@@ -46,7 +48,8 @@ class BlogListController extends AdminController{
                     "save_time" =>date("Y-m-d H:i:s"),
                     "author"    => I("post.author","lfq3300"),
                     "sort"      =>I("post.sort"),
-                    "assortment"=>I("post.assortment")
+                    "assortment"=>I("post.assortment"),
+                    "privacy"   =>I("post.privacy")
                 );
                 if (D("Blogger")->addlog($data)){
                     $this->success("成功",U("index"));
@@ -58,6 +61,7 @@ class BlogListController extends AdminController{
                $Builder = new AdminConfigBuilder();
                $Builder
                    ->keySelect("hide","是否显示博客",array("value"=>1),array("1"=>"显示","2"=>"隐藏"))
+                  ->keySelect("privacy","是否个人可见",array("value"=>2),array("1"=>"仅个人可见","2"=>"全部人可见"))
                    ->title("新增博客")
                    ->keyText("title","标题")
                    ->keySelect("assortment","选择分类","",$typeData)
@@ -84,7 +88,8 @@ class BlogListController extends AdminController{
                 "save_time" =>date("Y-m-d H:i:s"),
                 "author"    => I("post.author","lfq3300"),
                 "sort"      =>I("post.sort"),
-                "assortment"=>I("post.assortment")
+                "assortment"=>I("post.assortment"),
+                "privacy"   =>I("post.privacy")
             );
             if (D("Blogger")->savelog($id,$data)){
                 $this->success("成功",U("index"));
@@ -97,6 +102,7 @@ class BlogListController extends AdminController{
             $typeData = D("Blogger")->getType();
             $Builder
                 ->keySelect("hide","是否显示博客",array("value"=>1),array("1"=>"显示","2"=>"隐藏"))
+                ->keySelect("privacy","是否个人可见",array("value"=>2),array("1"=>"仅个人可见","2"=>"全部人可见"))
                 ->title("修改博客")
                 ->keyHidden("id")
                 ->keyText("title","标题")
@@ -125,17 +131,31 @@ class BlogListController extends AdminController{
 
     public  function  preview(){
         $id =  I("get.id");
-        $url = "http://www.luofq.com/Blog?id={$id}";
+        $p =  I("get.p");
+        $url = "http://luo/index.php/index/blog?id={$id}&p={$p}";
         Header("Location: $url");
     }
 
-    public  function  type(){
-        $data = D("Blogger")->getListType();
+
+    public  function firstType(){
+        $data = D("Blogger")->getListFirstType();
         $Builder = new AdminListBuilder();
         $Builder
-            ->title("博客分类")
+            ->title("博客一级分类")
             ->powerAdd("addType")
-            ->keyText("p_name","父级目录")
+            ->keyLink('assortment_name','分类名称',"nextMenu?id=###")
+            ->powerEdit("editType?id=###")
+            ->data($data)
+            ->display();
+    }
+
+    public  function  nextMenu(){
+        $id = I("get.id");
+        $data = D("Blogger")->getListType($id);
+        $Builder = new AdminListBuilder();
+        $Builder
+            ->title("博客二级分类")
+            ->powerAdd("addType")
             ->keyText("assortment_name","分类名称")
             ->powerEdit("editType?id=###")
             ->data($data)

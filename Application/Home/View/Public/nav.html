@@ -1,12 +1,15 @@
 <aside id="secondary" class="sidebar widget-area" role="complementary">
     <section id="search-3" class="widget widget_search">
-        <form role="search" method="get" class="search-form" action="/index">
+        <form role="search" method="get" class="search-form" action="/">
             <label>
                 <span class="screen-reader-text">Search for:</span>
                 <input type="search" class="search-field" placeholder="Search …" value="{$_GET['key']}" name="key">
             </label>
             <button type="submit" class="search-submit"><span class="screen-reader-text">Search</span></button>
         </form>
+    </section>
+    <section  class="widget widget_archive">
+        <h2 class="widget-title"><a href="/index.php/Log">Log</a></h2>
     </section>
     <volist name="firsttnav" id="first">
         <section id="archives-{$first.id}" class="widget widget_archive">
@@ -15,7 +18,7 @@
                 <volist name="twotnav" id="two">
                     <if condition="$first['id'] eq $two['p_id']">
                         <li>
-                            <a href="/index?typeid={$two.id}">{$two.assortment_name}</a>&nbsp;({$two.blog_num})
+                            <a href="/?typeid={$two.id}">{$two.assortment_name}</a>&nbsp;({$two.blog_num})
                         </li>
                     </if>
                 </volist>
