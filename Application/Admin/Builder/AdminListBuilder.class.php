@@ -118,6 +118,9 @@ class AdminListBuilder extends AdminBuilder{
     //    $map = array(-1 => '删除', 0 => '禁用', 1 => '启用', 2 => '未审核');
         return $this->key($name, $title, 'status', $map);
     }
+    public  function  keyHtml($name, $title,$ope = null){
+        return $this->key($name, $title,"Html",$ope);
+    }
 
 
      public function keyImg($name,$title,$url){
@@ -405,7 +408,10 @@ class AdminListBuilder extends AdminBuilder{
             $html = "<img style='max-width:150px;max-height:150px' src=\"" .$key['mcurl'] .$value ."\" class='tpl-table-line-img' />";
             return $html;
         });
-         
+        $this->convertKey("Html",'html',function($value,$key,$item){
+            $html = html_entity_decode($value);
+            return $html;
+        });
         $this->convertKey('status', 'html', function ($value, $key, $item) use ($setStatusUrl,$that) {
             //如果没有设置修改状态的URL，则直接返回文字
             $map = $key['opt'];

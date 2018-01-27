@@ -6,15 +6,17 @@ class LogsController extends AdminController{
     public  function  index()
     {
         $page = I("get.page",1,"intval");
-        list($data,$total) = D("Log")->getList($page,20);
+        list($data,$total) = D("Log")->getData($page,20);
         $Builder = new AdminListBuilder();
         $Builder
             ->title("日志列表")
             ->powerAdd("add")
             ->powerRemove("delete")
-            ->keyText("content","日志内容")
+            ->keyHtml("content","日志内容")
             ->keyText("add_time","添加时间")
-            ->keyText("status","是否显示")
+            ->keyText("save_time","修改时间")
+            ->keyStatus("status","是否显示",array("1"=>"显示","2"=>"不显示"))
+            ->keyStatus("privacy","是否个人可见",array("1"=>"仅个人可见","2"=>"全部人可见"))
             ->powerEdit("edit?id=###")
             ->data($data)
             ->pagination($total,20)

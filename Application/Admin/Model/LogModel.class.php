@@ -7,7 +7,7 @@ class LogModel extends CommonModel{
             ->table("mc_log")
             ->page($page,$size)
             ->select();
-        $total = M("mc_log")->count();
+        $total = M("log")->count();
         return array($data,$total);
     }
 

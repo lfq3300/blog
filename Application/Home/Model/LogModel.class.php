@@ -1,17 +1,13 @@
 <?php
-namespace Admin\Model;
-use Admin\Model\CommonModel;
+namespace Home\Model;
+use Home\Model\CommonModel;
 class LogModel extends CommonModel{
-    public  function  getData($page,$size){
-        $data = $this
-            ->table("mc_log")
-            ->page($page,$size)
-            ->select();
-        $total = M("log")->count();
-        return array($data,$total);
-    }
+    public  function  getlist($page,$size,$root){
+        if($root){
+            return M("log")->page($page,$size)->field("id as logid,DATE_FORMAT(add_time,'%Y-%m-%d') as add_time,content")->select();
+        }else{
+            return M("log")->where(array("privacy"=>2))->page($page,$size)->field("id as logid,DATE_FORMAT(add_time,'%Y-%m-%d') as add_time,content")->select();
+        }
 
-    public  function  getInfo($id){
-        return M("log")->where(array("id"=>$id))->find();
     }
 }

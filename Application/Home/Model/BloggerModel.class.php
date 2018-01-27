@@ -2,35 +2,33 @@
 namespace Home\Model;
 use Home\Model\CommonModel;
 class BloggerModel extends CommonModel{
-    public  function  getIndex(){
+    public  function  getIndex($root){
+        if(!$root){
+            $where["A.privacy"] = 2;
+            $where["A.hide"] = 1;
+        }
         $data =
             $this
                 ->table("mc_blogger as A")
                 ->join("mc_blogger_assortment AS B on A.assortment = B.id")
                 ->page(1,5)
+                ->where($where)
                 ->order("A.sort desc,A.save_time")
                 ->field("A.id,A.cover_img,A.author,DATE_FORMAT(A.add_time,'%M %d,%Y') as add_time,A.title,A.introduction,A.blog,B.assortment_name,B.id as assortment_id")
                 ->select();
         return $data;
     }
 
-    public  function  getIndexTypeBlog($id,$page,$size){
-        $data =
-            $this
-                ->table("mc_blogger as A")
-                ->join("mc_blogger_assortment AS B on A.assortment = B.id")
-                ->page($page,$size)
-                ->order("A.sort desc,save_time")
-                ->where(array("A.assortment"=>$id))
-                ->field("A.id,A.cover_img,A.author,DATE_FORMAT(A.add_time,'%M %d,%Y') as add_time,A.title,A.introduction,A.blog,B.assortment_name,B.id as assortment_id")
-                ->select();
-        $count = M("blogger")->where(array("assortment"=>$id))->count();
-        return array($data,$count);
-    }
-
-    public  function  getIndexKeyBlog($key,$page,$size){
-        $where["A.title"] = array("like","%$key%");
-        $where2["title"] = array("like","%$key%");
+    public  function  getIndexTypeBlog($id,$page,$size,$root){
+        if($root){
+            $where["A.assortment"] = $id;
+            $where2["assortment"] = $id;
+        }else{
+            $where["A.assortment"] = $id;
+            $where["A.privacy"] = 2;
+            $where["A.hide"] = 1;
+            $where2["assortment"] = $id;
+        }
         $data =
             $this
                 ->table("mc_blogger as A")
@@ -42,13 +40,46 @@ class BloggerModel extends CommonModel{
                 ->select();
         $count = M("blogger")->where($where2)->count();
         return array($data,$count);
+
     }
 
-    public  function  getInfo($id){
+    public  function  getIndexKeyBlog($key,$page,$size,$root){
+        if($root){
+            $where["A.title"] = array("like","%$key%");
+            $where2["title"] = array("like","%$key%");
+        }else{
+            $where["A.title"] = array("like","%$key%");
+            $where["A.privacy"] = 2;
+            $where["A.hide"] = 1;
+            $where2["title"] = array("like","%$key%");
+
+        }
+        $data =
+            $this
+                ->table("mc_blogger as A")
+                ->join("mc_blogger_assortment AS B on A.assortment = B.id")
+                ->page($page,$size)
+                ->order("A.sort desc,save_time")
+                ->where($where)
+                ->field("A.id,A.cover_img,A.author,DATE_FORMAT(A.add_time,'%M %d,%Y') as add_time,A.title,A.introduction,A.blog,B.assortment_name,B.id as assortment_id")
+                ->select();
+        $count = M("blogger")->where($where2)->count();
+        return array($data,$count);
+
+    }
+
+    public  function  getInfo($id,$root){
+        if($root){
+            $where["A.id"] = $id;
+        }else{
+            $where["A.id"] = $id;
+            $where["A.privacy"] = 2;
+            $where["A.hide"] = 1;
+        }
         $data = $this
             ->table("mc_blogger as A")
             ->join("mc_blogger_assortment AS B on A.assortment = B.id")
-            ->where(array("A.id"=>$id))
+            ->where($where)
             ->field("A.id,A.cover_img,author,DATE_FORMAT(A.add_time,'%M %d,%Y') as add_time,A.title,A.introduction,A.blog,B.assortment_name,B.id as assortment_id")
             ->find();
        return  $data;
