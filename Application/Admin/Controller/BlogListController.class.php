@@ -61,7 +61,7 @@ class BlogListController extends AdminController{
                $Builder = new AdminConfigBuilder();
                $Builder
                    ->keySelect("hide","是否显示博客",array("value"=>1),array("1"=>"显示","2"=>"隐藏"))
-                  ->keySelect("privacy","是否个人可见",array("value"=>2),array("1"=>"仅个人可见","2"=>"全部人可见"))
+                   ->keySelect("privacy","是否个人可见",array("value"=>2),array("1"=>"仅个人可见","2"=>"全部人可见"))
                    ->title("新增博客")
                    ->keyText("title","标题")
                    ->keySelect("assortment","选择分类","",$typeData)
@@ -101,8 +101,8 @@ class BlogListController extends AdminController{
             $Builder = new AdminConfigBuilder();
             $typeData = D("Blogger")->getType();
             $Builder
-                ->keySelect("hide","是否显示博客",array("value"=>1),array("1"=>"显示","2"=>"隐藏"))
-                ->keySelect("privacy","是否个人可见",array("value"=>2),array("1"=>"仅个人可见","2"=>"全部人可见"))
+                ->keySelect("hide","是否显示博客",array("value"=>$data["hide"]),array("1"=>"显示","2"=>"隐藏"))
+                ->keySelect("privacy","是否个人可见",array("value"=>$data["privacy"]),array("1"=>"仅个人可见","2"=>"全部人可见"))
                 ->title("修改博客")
                 ->keyHidden("id")
                 ->keyText("title","标题")
@@ -167,7 +167,7 @@ class BlogListController extends AdminController{
         if($_POST){
             $ret = M("blogger_assortment")->where(array("id"=>I("post.id")))->save(array("assortment_name"=>I("post.assortment_name"),"p_id"=>I("post.p_id")));
             if($ret!=false){
-                $this->success("修改成功",U("type"));
+                $this->success("修改成功",U("nextMenu",array("id"=>I("post.p_id"))));
             }else{
                 $this->error("修改失败");
             }

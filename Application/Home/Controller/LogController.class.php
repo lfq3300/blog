@@ -20,7 +20,7 @@ class LogController extends Controller{
 
     public  function  getNextLog(){
         $root = I("post.p");
-        $page = I("post.page",1,"intval");
+        $page = I("post.page",2,"intval");
         $size = I("post.size",20,"intval");
         if($root === C("POWER")){
             $data = D("log")->getlist($page,$size,true);

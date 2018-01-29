@@ -128,8 +128,8 @@ class AdminListBuilder extends AdminBuilder{
         $this->_keyList[] = $key;
         return $this;
     }
-    public function query($value = '',$state = false,$name='query',$opt,$title="查询条件"){
-        $this->_query = array("value"=>$value,'state'=>$state,"name"=>$name,"title"=>$title,'opt'=>$opt);
+    public function query($value = '',$state = false,$opt,$title="查询条件"){
+        $this->_query = array("value"=>$value,'state'=>$state,"name"=>'key',"title"=>$title,'opt'=>$opt);
         return $this;
     }
 

@@ -38,7 +38,7 @@
                     <td>{$item.telephone}</td>
                     <td>{$item.address}</td>
                 <else />
-                    <td>{$item.shuoming}</td>
+                    <td><?php echo html_entity_decode($item["shuoming"]);?></td>
             </if>
         </tr>
     </volist>

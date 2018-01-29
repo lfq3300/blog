@@ -166,7 +166,7 @@ class AdminController extends Controller{
 				->title("修改菜单")
 				->keyHidden("id")
                 ->keyHidden("p_id")
-				->keySelect("p_id","所属目录","",$pidList)
+				->keySelect("p_id","所属目录",array("value"=>$data["p_id"]),$pidList)
 				->keyText("title","标题")
 				->keyText('url','菜单连接','',array("placeholder"=>"一级目录无需连接"))
 				->keyText("sort","排序")
