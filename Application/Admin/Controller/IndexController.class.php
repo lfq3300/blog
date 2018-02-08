@@ -51,8 +51,10 @@ class IndexController extends Controller{
         session('account',NULL);
         session('account_id',NULL);
         session('level',NULL);
+        $log = date("Y-m-d H:i:s")."error_power_3"."\r\n";
+        file_put_contents('login_log.txt',$log,FILE_APPEND);
         $url = U("Index/index");
-        header("Location: $url");
+       // header("Location: $url");
 	}
 
 

@@ -9,7 +9,10 @@ class AdminController extends Controller{
         $account = $_SESSION['account_id'];
         if(empty($account)){
             $url = U("Index/index");
-            header("Location: $url");
+            $log = date("Y-m-d H:i:s")."error_power_4"."\r\n";
+            file_put_contents('login_log.txt',$log,FILE_APPEND);
+            //header("Location: $url");
+            exit;
         }
         //权限检测
         //获取当前URL

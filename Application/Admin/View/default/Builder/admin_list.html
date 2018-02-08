@@ -191,13 +191,13 @@
 							<table width="100%" class="am-table am-table-compact am-table-bordered am-table-striped tpl-table-black">
 								<thead>
 									<tr>
-										<th class="checkbox">
+										<th class="checkbox" >
 											<label>
 												<input type="checkbox" id="builderAllCheckbox" name="">
 											</label>
 										</th>
 										<volist name="keyList" id="field">
-						                    <th>{$field.title}</th>
+											<th style="max-width: 200px;max-height: 50px;overflow: hidden">{$field.title}</th>
 						                </volist>
 									</tr>
 								</thead>
@@ -210,7 +210,7 @@
 												</label>
 											</td>
 											<volist name="keyList" id="field">
-												<td>
+												<td  style="max-width: 200px;max-height: 50px;overflow: hidden">
 													{$e[$field['name']]}	
 												</td>
 											</volist>

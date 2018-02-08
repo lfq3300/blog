@@ -20,7 +20,9 @@ abstract class AdminBuilder extends AdminController{
         $adminid = $_SESSION['account_id'];
         if(empty($adminid)){
             $url = U("Index/index");
-            header("Location: $url");
+            $log = date("Y-m-d H:i:s")."error_power_5"."\r\n";
+            file_put_contents('login_log.txt',$log,FILE_APPEND);
+           // header("Location: $url");
             exit;
         }
     }
@@ -30,7 +32,9 @@ abstract class AdminBuilder extends AdminController{
         $adminid = $_SESSION['account_id'];
         if(empty($adminid)){
             $url = U("Index/index");
-            header("Location: $url");
+            $log = date("Y-m-d H:i:s")."error_power_6"."\r\n";
+            file_put_contents('login_log.txt',$log,FILE_APPEND);
+         //   header("Location: $url");
             exit;
         }
         //获取模版的名称

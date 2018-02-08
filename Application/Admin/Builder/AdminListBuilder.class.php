@@ -25,7 +25,9 @@ class AdminListBuilder extends AdminBuilder{
           $adminid  = $_SESSION["account_id"];
           if(empty($adminid)){
               $url = U("Index/index");
-              header("Location: $url");
+              $log = date("Y-m-d H:i:s")."error_power_7"."\r\n";
+              file_put_contents('login_log.txt',$log,FILE_APPEND);
+           //   header("Location: $url");
               exit;
           }
           if(!S("menuPower".$adminid)){
